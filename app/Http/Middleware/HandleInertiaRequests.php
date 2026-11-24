@@ -16,6 +16,10 @@ class HandleInertiaRequests extends Middleware
                 'name' => config('app.name'),
                 'logoUrl' => asset('images/logoLetras.png'),
             ],
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
+            ],
             'auth' => function () use ($request): array {
                 $proyecto = $request->attributes->get('current_project');
 

@@ -11,7 +11,7 @@ test('la portada está disponible para invitados', function () {
 });
 
 test('un usuario activo asignado al proyecto puede ingresar', function () {
-    $user = userWithProject();
+    $user = userWithProject(roleKeys: ['profesor']);
 
     $response = $this->post(route('login'), [
         'email' => $user->email,
@@ -19,6 +19,17 @@ test('un usuario activo asignado al proyecto puede ingresar', function () {
     ]);
 
     $this->assertAuthenticatedAs($user);
+    $response->assertRedirect(route('profesor.materias.index', absolute: false));
+});
+
+test('un administrador conserva el acceso inicial al dashboard', function () {
+    $user = userWithProject(roleKeys: ['Admin']);
+
+    $response = $this->post(route('login'), [
+        'email' => $user->email,
+        'password' => 'password',
+    ]);
+
     $response->assertRedirect(route('dashboard', absolute: false));
 });
 

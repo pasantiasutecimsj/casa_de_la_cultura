@@ -4,10 +4,17 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
 
 const navigationOpen = ref(false);
+const page = usePage();
+const isAdmin = computed(() =>
+    page.props.auth.roles?.some((role) => role.key.toLowerCase() === 'admin'),
+);
+const isProfesor = computed(() =>
+    page.props.auth.roles?.some((role) => role.key.toLowerCase() === 'profesor'),
+);
 </script>
 
 <template>
@@ -26,6 +33,27 @@ const navigationOpen = ref(false);
                                 :active="route().current('dashboard')"
                             >
                                 Inicio
+                            </NavLink>
+                            <NavLink
+                                v-if="isAdmin"
+                                :href="route('admin.materias.index')"
+                                :active="route().current('admin.materias.*')"
+                            >
+                                Materias
+                            </NavLink>
+                            <NavLink
+                                v-if="isAdmin"
+                                :href="route('admin.alumnos.index')"
+                                :active="route().current('admin.alumnos.*')"
+                            >
+                                Alumnos
+                            </NavLink>
+                            <NavLink
+                                v-if="isProfesor"
+                                :href="route('profesor.materias.index')"
+                                :active="route().current('profesor.materias.*')"
+                            >
+                                Mis materias
                             </NavLink>
                         </div>
                     </div>
@@ -78,6 +106,27 @@ const navigationOpen = ref(false);
                 >
                     Inicio
                 </ResponsiveNavLink>
+                <ResponsiveNavLink
+                    v-if="isAdmin"
+                    :href="route('admin.materias.index')"
+                    :active="route().current('admin.materias.*')"
+                >
+                    Materias
+                </ResponsiveNavLink>
+                <ResponsiveNavLink
+                    v-if="isAdmin"
+                    :href="route('admin.alumnos.index')"
+                    :active="route().current('admin.alumnos.*')"
+                >
+                    Alumnos
+                </ResponsiveNavLink>
+                <ResponsiveNavLink
+                    v-if="isProfesor"
+                    :href="route('profesor.materias.index')"
+                    :active="route().current('profesor.materias.*')"
+                >
+                    Mis materias
+                </ResponsiveNavLink>
 
                 <div class="mt-2 border-t border-white/10 pt-2">
                     <p class="px-4 py-2 text-sm text-blue-100">
@@ -109,6 +158,14 @@ const navigationOpen = ref(false);
         </header>
 
         <main>
+            <div v-if="$page.props.flash?.success || $page.props.flash?.error" class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+                <div v-if="$page.props.flash?.success" class="rounded-md border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800" role="status">
+                    {{ $page.props.flash.success }}
+                </div>
+                <div v-if="$page.props.flash?.error" class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+                    {{ $page.props.flash.error }}
+                </div>
+            </div>
             <slot />
         </main>
     </div>
