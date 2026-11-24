@@ -1,6 +1,6 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
-    "name": "plantilla-generica",
+    "name": "casa-de-la-cultura",
     "private": true,
     "type": "module",
     "scripts": {

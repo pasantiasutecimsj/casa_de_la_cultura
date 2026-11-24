@@ -1,6 +1,6 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "imsj/plantilla-generica",
+    "name": "imsj/casa-de-la-cultura",
     "type": "project",
     "description": "Plantilla base para aplicaciones internas con Laravel, Inertia y Vue.",
     "keywords": [

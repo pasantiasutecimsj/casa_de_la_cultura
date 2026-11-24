@@ -5,8 +5,8 @@
 
     RewriteEngine On
 
-    RewriteBase /!!!!NOMBRE_PROYECTO!!!!/
-	RewriteCond %{REQUEST_URI} ^/!!!!NOMBRE_PROYECTO!!!!/public/build/
+    RewriteBase /casa_de_la_cultura/
+	RewriteCond %{REQUEST_URI} ^/casa_de_la_cultura/public/build/
 	RewriteRule ^ - [L]
 
     # Handle Authorization Header
