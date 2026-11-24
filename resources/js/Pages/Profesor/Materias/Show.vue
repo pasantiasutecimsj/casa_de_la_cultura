@@ -113,7 +113,7 @@ const fecha = (value) => (value ? String(value).slice(0, 10) : '—');
                     <h2 class="text-lg font-semibold text-gray-900">Inscribir alumno</h2>
                     <button type="button" class="text-sm font-medium text-brand hover:underline" @click="toggleNewStudent">{{ nuevoAlumno ? 'Elegir alumno existente' : 'Registrar alumno nuevo' }}</button>
                 </div>
-                <form v-if="!nuevoAlumno" class="mt-4 grid gap-4 sm:grid-cols-[1fr_180px_auto] sm:items-end" @submit.prevent="enroll">
+                <form v-if="!nuevoAlumno" class="mt-4 grid min-w-0 gap-4 sm:grid-cols-[minmax(0,1fr)_180px_auto] sm:items-end" @submit.prevent="enroll">
                     <div>
                         <label for="alumno_id" class="block text-sm font-medium text-gray-700">Alumno</label>
                         <select id="alumno_id" v-model="inscription.alumno_id" required class="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-brand focus:ring-brand">
@@ -171,7 +171,34 @@ const fecha = (value) => (value ? String(value).slice(0, 10) : '—');
                                 <td class="px-6 py-4 text-sm text-gray-600">{{ fecha(row.fecha_inscripcion) }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-600"><input v-model="gradeForm(row).fecha_examen" type="date" class="rounded-md border-gray-300 text-sm shadow-sm focus:border-brand focus:ring-brand"></td>
                                 <td class="px-6 py-4 text-sm text-gray-600"><input v-model="gradeForm(row).nota" type="number" min="0" class="w-24 rounded-md border-gray-300 text-sm shadow-sm focus:border-brand focus:ring-brand"></td>
-                                <td class="px-6 py-4 text-right"><button type="button" :disabled="gradeForm(row).processing" class="font-medium text-brand hover:underline disabled:opacity-50" @click="updateGrade(row)">Guardar datos</button><InputError class="mt-1 text-left" :message="gradeForm(row).errors.nota || gradeForm(row).errors.fecha_examen" /></td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex flex-wrap items-center justify-end gap-2">
+                                        <a
+                                            :href="route('profesor.materias.alumnos.escolaridad', [materia.id, row.alumno.id])"
+                                            target="_blank"
+                                            class="inline-flex items-center gap-1.5 rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-1.5 text-xs font-semibold text-emerald-800 transition hover:border-emerald-300 hover:bg-emerald-100"
+                                            title="Imprimir escolaridad"
+                                        >
+                                            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 8V3h10v5M7 17H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M7 14h10v7H7z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 11h.01" />
+                                            </svg>
+                                            Escolaridad
+                                        </a>
+                                        <button
+                                            type="button"
+                                            :disabled="gradeForm(row).processing"
+                                            class="inline-flex items-center gap-1.5 rounded-md bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                                            @click="updateGrade(row)"
+                                        >
+                                            <svg v-if="!gradeForm(row).processing" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6" />
+                                            </svg>
+                                            {{ gradeForm(row).processing ? 'Guardando…' : 'Guardar datos' }}
+                                        </button>
+                                        <InputError class="mt-1 text-left" :message="gradeForm(row).errors.nota || gradeForm(row).errors.fecha_examen" />
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

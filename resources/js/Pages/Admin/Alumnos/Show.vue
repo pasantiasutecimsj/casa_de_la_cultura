@@ -22,7 +22,10 @@ const fecha = (value) => (value ? String(value).slice(0, 10) : '—');
                     <Link :href="route('admin.alumnos.index')" class="text-sm font-medium text-brand hover:underline">← Alumnos</Link>
                     <h1 class="mt-2 text-xl font-semibold text-gray-900">{{ alumno.nombre }} {{ alumno.apellido }}</h1>
                 </div>
-                <Link :href="route('admin.alumnos.edit', alumno.id)" class="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark">Editar alumno</Link>
+                <div class="flex flex-wrap gap-3">
+                    <a :href="route('admin.alumnos.escolaridad', alumno.id)" target="_blank" class="rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">Imprimir escolaridad</a>
+                    <Link :href="route('admin.alumnos.edit', alumno.id)" class="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-brand-dark">Editar alumno</Link>
+                </div>
             </div>
         </template>
 

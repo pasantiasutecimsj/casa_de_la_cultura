@@ -44,7 +44,7 @@ const eliminar = (materia) => {
         <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
             <section class="overflow-hidden rounded-xl bg-white shadow-sm">
                 <div class="flex flex-wrap gap-3 border-b border-gray-100 p-4">
-                    <input v-model="busqueda" type="search" placeholder="Buscar materia..." class="min-w-64 flex-1 rounded-md border-gray-300 text-sm shadow-sm focus:border-brand focus:ring-brand">
+                    <input v-model="busqueda" type="search" placeholder="Buscar materia..." class="w-full min-w-0 flex-1 rounded-md border-gray-300 text-sm shadow-sm focus:border-brand focus:ring-brand sm:w-auto">
                     <select v-model="orden" class="rounded-md border-gray-300 text-sm shadow-sm focus:border-brand focus:ring-brand"><option value="nombre">A-Z</option><option value="nombre-desc">Z-A</option></select>
                 </div>
                 <div v-if="materiasOrdenadas.length" class="overflow-x-auto">

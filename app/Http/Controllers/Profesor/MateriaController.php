@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Alumno;
 use App\Models\Calificacion;
 use App\Models\Materia;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,6 +50,23 @@ class MateriaController extends Controller
                 ->orderBy('nombre')
                 ->get(['id', 'nombre', 'apellido', 'ci', 'edad']),
         ]);
+    }
+
+    public function escolaridad(Request $request, Materia $materia, Alumno $alumno)
+    {
+        $materia = $this->materiaAccesible($request, $materia->getKey());
+
+        abort_unless($alumno->calificaciones()
+            ->where('idMateria', $materia->getKey())
+            ->exists(), 404);
+
+        $alumno->load('calificaciones.materia');
+
+        return Pdf::loadView('pdf.escolaridad', [
+            'alumno' => $alumno,
+        ])
+            ->setPaper('a4')
+            ->download('escolaridad-'.$alumno->ci.'.pdf');
     }
 
     public function store(Request $request, Materia $materia): RedirectResponse

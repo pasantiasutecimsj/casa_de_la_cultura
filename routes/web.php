@@ -23,6 +23,8 @@ Route::middleware(['auth', 'project.access:Admin'])
             [AdminMateriaController::class, 'updateProfesores']
         )->name('materias.profesores.update');
         Route::resource('alumnos', AdminAlumnoController::class);
+        Route::get('alumnos/{alumno}/escolaridad', [AdminAlumnoController::class, 'escolaridad'])
+            ->name('alumnos.escolaridad');
     });
 
 Route::middleware(['auth', 'project.access:profesor,Admin'])
@@ -39,6 +41,8 @@ Route::middleware(['auth', 'project.access:profesor,Admin'])
             'materias/{materia}/inscripciones/{calificacion}',
             [ProfesorMateriaController::class, 'update']
         )->name('materias.inscripciones.update');
+        Route::get('materias/{materia}/alumnos/{alumno}/escolaridad', [ProfesorMateriaController::class, 'escolaridad'])
+            ->name('materias.alumnos.escolaridad');
     });
 
 require __DIR__.'/auth.php';

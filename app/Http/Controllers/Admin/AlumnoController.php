@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Alumno;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +41,17 @@ class AlumnoController extends Controller
         return Inertia::render('Admin/Alumnos/Show', [
             'alumno' => $alumno->load('calificaciones.materia'),
         ]);
+    }
+
+    public function escolaridad(Alumno $alumno)
+    {
+        $alumno->load('calificaciones.materia');
+
+        return Pdf::loadView('pdf.escolaridad', [
+            'alumno' => $alumno,
+        ])
+            ->setPaper('a4')
+            ->download('escolaridad-'.$alumno->ci.'.pdf');
     }
 
     public function edit(Alumno $alumno): Response
