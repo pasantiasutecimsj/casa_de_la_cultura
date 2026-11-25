@@ -57,7 +57,7 @@ const isProfesor = computed(() =>
                         <Link
                             v-if="isAdmin"
                             :href="route('admin.materias.index')"
-                            class="group flex min-h-40 w-full min-w-0 flex-col items-center justify-center rounded-2xl bg-blue-600 p-5 text-center text-white shadow-lg transition hover:-translate-y-1 hover:bg-blue-700 hover:shadow-xl sm:w-72 sm:p-7"
+                            class="group flex min-h-40 w-full min-w-0 flex-col items-center justify-center rounded-2xl bg-blue-600 p-5 text-center text-white shadow-lg transition hover:-translate-y-1 hover:bg-blue-700 hover:shadow-xl sm:p-7"
                         >
                             <svg class="mb-3 h-12 w-12 text-blue-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15Z" />
@@ -69,7 +69,7 @@ const isProfesor = computed(() =>
                         <Link
                             v-if="isAdmin"
                             :href="route('admin.alumnos.index')"
-                            class="group flex min-h-40 w-full min-w-0 flex-col items-center justify-center rounded-2xl bg-blue-600 p-5 text-center text-white shadow-lg transition hover:-translate-y-1 hover:bg-blue-700 hover:shadow-xl sm:w-72 sm:p-7"
+                            class="group flex min-h-40 w-full min-w-0 flex-col items-center justify-center rounded-2xl bg-blue-600 p-5 text-center text-white shadow-lg transition hover:-translate-y-1 hover:bg-blue-700 hover:shadow-xl sm:p-7"
                         >
                             <svg class="mb-3 h-12 w-12 text-blue-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                                 <circle cx="9" cy="8" r="3" />
